@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <h2>BordUp™</h2>
+                <p>Rocks Company<br><small>Team - 20 Members</small></p>
+                <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active">Dashboard</li>
+                    <li>Employee</li>
+                    <li>Recruitment</li>
+                    <li>Payroll</li>
+                    <li>Schedule</li>
+                </ul>
+                <h4>Departments</h4>
+                <ul class="departments">
+                    <li><span class="dot blue"></span> Business & Marketing</li>
+                    <li><span class="dot green"></span> Design</li>
+                    <li><span class="dot orange"></span> Project Manager</li>
+                    <li><span class="dot purple"></span> Human Resource</li>
+                    <li><span class="dot red"></span> Development</li>
+                </ul>
+                <div class="other">
+                    <p>Setting</p>
+                    <p>Help Center</p>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <input type="text" id="search" placeholder="Search keyword..." />
+                <div class="btn-group">
+                    <button class="btn" onclick="toggleDarkMode()">🌓</button>
+                    <button class="btn">Export</button>
+                    <button class="btn primary" onclick="openModal()">+ Add Employee</button>
+                </div>
+            </header>
+
+            <section class="content">
+                <h2>Employee</h2>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('request', this)">Request Time Off</button>
+                    <button class="tab" onclick="switchTab('manage', this)">Manage Employees</button>
+                    <button class="tab" onclick="switchTab('chart', this)">Organization Chart</button>
+                </div>
+
+                <!-- REQUEST TAB -->
+                <div id="request" class="tab-content">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Leave Type</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Days</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaveTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MANAGE TAB -->
+                <div id="manage" class="tab-content" style="display:none;">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Department</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="manageBody">
+                                <tr>
+                                    <td>Brooklyn Simmons</td>
+                                    <td>Product Manager</td>
+                                    <td>Development</td>
+                                    <td>brooklyn@company.com</td>
+                                    <td><button class="btn" onclick="editEmployee(this)">Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Leslie Alexander</td>
+                                    <td>UX Designer</td>
+                                    <td>Design</td>
+                                    <td>leslie@company.com</td>
+                                    <td><button class="btn" onclick="editEmployee(this)">Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Ralph Edwards</td>
+                                    <td>QA Analyst</td>
+                                    <td>HR</td>
+                                    <td>ralph@company.com</td>
+                                    <td><button class="btn" onclick="editEmployee(this)">Edit</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CHART TAB -->
+                <div id="chart" class="tab-content" style="display:none;">
+                    <ul class="org-chart">
+                        <li>CEO
+                            <ul>
+                                <li>CTO<ul>
+                                        <li>Dev Team</li>
+                                        <li>QA Team</li>
+                                    </ul>
+                                </li>
+                                <li>COO<ul>
+                                        <li>HR Manager</li>
+                                        <li>Recruitment</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+    <div class="modal" id="employeeModal">
+        <h3 id="modalTitle">Add Employee</h3>
+        <form id="employeeForm" onsubmit="submitEmployee(event)">
+            <input type="text" id="empName" placeholder="Full Name" required />
+            <input type="text" id="empPosition" placeholder="Position" required />
+            <input type="text" id="empDepartment" placeholder="Department" required />
+            <input type="email" id="empEmail" placeholder="Email" required />
+            <button type="submit" class="btn primary">Save</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
